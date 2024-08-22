@@ -4,9 +4,10 @@ dispatcher = updater.dispatcher
 from telegram.ext import Updater, CommandHandler
 from telegram.error import BadRequest
 
-TOKEN = '7305919696:AAGrDCWIOleblQARvF5Y95S5MdT6qiBBd0I'
+#YOUR TOKEN(ID)
+TOKEN = 'TOKEN'
 
-# ID канала, который вы хотите очистить (должен быть числовым)
+# If a member is not an administrator, exclude him or her / Wenn ein Mitglied kein Administrator ist, schließen Sie ihn oder sie aus
 CHANNEL_ID = '@testtttttttttadsa'
 
 def kick_non_admins(update, context):
@@ -15,12 +16,12 @@ def kick_non_admins(update, context):
     admins = [admin.user.id for admin in bot.get_chat_administrators(chat.id)]
     
     
-    # Получаем список всех участников канала
+    # We get a list of all channel participants / Wir erhalten eine Liste aller Kanalteilnehmer
     members = bot.get_chat_members(chat.id)
     
     for member in members:
         user_id = member.user.id
-        # Если участник не является администратором, исключаем его
+        # If a member is not an administrator, exclude him or her / Wenn ein Mitglied kein Administrator ist, schließen Sie ihn oder sie aus
         if user_id not in admins:
             try:
                 bot.kick_chat_member(chat.id, user_id)
@@ -28,7 +29,7 @@ def kick_non_admins(update, context):
                 print(f"Failed to kick {user_id}: {e}")
 
 def start(update, context):
-    update.message.reply_text('Бот активен и готов к работе!')
+    update.message.reply_text('The bot is active and ready to go!')
 
 def main():
     updater = Updater(TOKEN, use_context=True)
